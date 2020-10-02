@@ -25,3 +25,29 @@ int main()
 	pairs_sum(arr, size, sum);
 	return 0;
 }
+
+// Similar approach if needed to print out the indexes of the elements
+// Leet code question
+/*
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target)
+    {
+        unordered_set<int> map;
+        
+        for(int i = 0; i < nums.size(); i++)
+        {
+           int temp = target - nums[i];
+            
+            if(map.find(temp) != map.end())
+            {   
+                auto x = find(nums.begin(), nums.end(), temp);
+                int index = distance(nums.begin(), x);
+                return {index, i};
+            }
+             map.insert(nums[i]);
+        }
+        return {};
+    }
+};
+*/
