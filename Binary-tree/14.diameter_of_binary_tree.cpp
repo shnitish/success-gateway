@@ -48,6 +48,38 @@ int diameter(Node *root)
 					// and diameter is calculated edge wise
 }
 
+// Efficient approach, O(n) 
+// Rather calculating height and diameter separately,
+// Make a pair which returns both for every node and call them recursively
+pair <int, int> heightDiameter(Node *root)
+{
+	if(root == NULL)
+	{
+		pair <int, int> basePair;
+		basePair.first = -1;
+		basePair.second = 0;
+
+		return basePair;
+	}
+
+	pair<int, int> leftPair = heightDiameter(root->left);
+	pair<int, int> rightPair = heightDiameter(root->right);
+
+	int leftHeight = leftPair.first;
+	int leftDia = leftPair.second;
+	int rightHeight = rightPair.first;
+	int rightDia = rightPair.second;
+
+	int totHeight = 1 + max(leftHeight, rightHeight);
+	int totDia = max(leftHeight + rightHeight + 2, max(leftDia, rightDia));
+
+	pair<int, int> result;
+	result.first = totHeight;
+	result.second = totDia;
+
+	return result;
+}
+
 Node *createNode(int data)
 {
 	Node *newnode = new Node();
@@ -70,7 +102,9 @@ int main()
 	root->right->left = createNode(62);
 	root->right->right = createNode(18);
 
-    cout<<diameter(root);
+    pair<int, int> p = heightDiameter(root);
+    cout<<"Height of the tree: "<<p.first<<endl;
+    cout<<"Diameter of the tree: "<<p.second;
 
 	return 0;
 }
