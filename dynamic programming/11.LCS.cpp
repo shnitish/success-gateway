@@ -4,6 +4,7 @@ https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/
 
 #include<iostream>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -26,6 +27,30 @@ int LCS(string str1, string str2, int m, int n)
 		}
 	}
 
+	// Printing LCS
+	int i = m;
+	int j = n;
+	string seq = "";
+
+	while(i > 0 && j > 0)
+	{
+		if(str1[i - 1] == str2[j - 1])
+		{
+			seq.push_back(str1[i - 1]);
+			i--;
+			j--;
+		}
+		else
+		{
+			if(result[i][j - 1] > result[i - 1][j])
+				j--;
+			else 
+				i--;
+			
+		}
+	}
+	reverse(seq.begin(), seq.end());
+	cout<<seq<<endl;
 	return result[m][n];
 }
 
